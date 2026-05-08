@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OTB Solutions — AI &amp; Technology Strategy for Financial Services</title>
+  <meta name="description" content="OTB Solutions LLC is a strategy and consulting firm helping financial services leaders align AI and technology to revenue and growth — across predictive analytics, distribution strategy, and operating model design.">
+  <meta property="og:title" content="OTB Solutions — Strategy &amp; Consulting for Financial Services">
+  <meta property="og:description" content="Aligning AI to revenue and growth in financial services.">
+  <meta property="og:image" content="otb_banner.png">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="otb_banner.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Syne:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --ink:    #0A0E17;
+      --ink2:   #111827;
+      --ink3:   #1E293B;
+      --slate:  #334155;
+      --mid:    #64748B;
+      --mist:   #94A3B8;
+      --rule:   rgba(255,255,255,0.07);
+      --white:  #FFFFFF;
+      --off:    #F1F5F9;
+      --gold:   #C9A84C;
+      --goldl:  #E2C97A;
+      --blue:   #3B82F6;
+      --bluel:  #60A5FA;
+      --glow:   rgba(59,130,246,0.15);
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Syne', sans-serif;
+      background: var(--ink);
+      color: var(--white);
+      overflow-x: hidden;
+      cursor: none;
+    }
+
+    .cursor { position: fixed; top: 0; left: 0; z-index: 9999; pointer-events: none; mix-blend-mode: difference; }
+    .cursor-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--white); transform: translate(-50%,-50%); transition: transform 0.1s; }
+    .cursor-ring { width: 36px; height: 36px; border-radius: 50%; border: 1px solid rgba(255,255,255,0.4); transform: translate(-50%,-50%); transition: transform 0.15s ease, width 0.3s, height 0.3s; position: absolute; top: 0; left: 0; }
+    body:hover .cursor-ring { transform: translate(-50%,-50%); }
+
+    body::before {
+      content: ''; position: fixed; inset: 0; z-index: 0;
+      opacity: 0.04;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      pointer-events: none;
+    }
+    body::after {
+      content: ''; position: fixed; inset: 0; z-index: 0;
+      background-image:
+        linear-gradient(var(--rule) 1px, transparent 1px),
+        linear-gradient(90deg, var(--rule) 1px, transparent 1px);
+      background-size: 80px 80px;
+      pointer-events: none;
+    }
+
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 20px 48px;
+      border-bottom: 1px solid var(--rule);
+      backdrop-filter: blur(20px);
+      background: rgba(10,14,23,0.8);
+    }
+    .nav-logo { display: flex; align-items: center; }
+    .nav-logo img { height: 38px; width: auto; filter: brightness(0) invert(1); }
+    .nav-links { display: flex; align-items: center; gap: 36px; list-style: none; }
+    .nav-links a { font-size: 12px; font-weight: 500; letter-spacing: 1.5px; text-transform: uppercase; color: var(--mist); text-decoration: none; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--white); }
+    .nav-cta { font-size: 11px; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; color: var(--gold) !important; border: 1px solid rgba(201,168,76,0.4); padding: 10px 20px; border-radius: 2px; transition: all 0.2s !important; }
+    .nav-cta:hover { background: rgba(201,168,76,0.1) !important; border-color: var(--gold) !important; }
+    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; }
+    .hamburger span { width: 24px; height: 1px; background: var(--white); display: block; }
+
+    #hero {
+      position: relative; z-index: 1;
+      min-height: 100vh;
+      display: flex; flex-direction: column; justify-content: flex-end;
+      padding: 0 48px 80px;
+      overflow: hidden;
+    }
+    .hero-bg {
+      position: absolute; inset: 0;
+      background:
+        radial-gradient(ellipse 80% 60% at 70% 50%, rgba(59,130,246,0.08) 0%, transparent 70%),
+        radial-gradient(ellipse 50% 40% at 20% 80%, rgba(201,168,76,0.06) 0%, transparent 60%);
+    }
+    .hero-label { font-size: 11px; font-weight: 600; letter-spacing: 3px; text-transform: uppercase; color: var(--gold); margin-bottom: 28px; opacity: 0; animation: fadeUp 0.8s ease 0.3s forwards; display: flex; align-items: center; gap: 12px; }
+    .hero-label::before { content: ''; display: block; width: 32px; height: 1px; background: var(--gold); }
+    .hero-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(52px, 8vw, 110px); font-weight: 300; line-height: 0.95; letter-spacing: -1px; max-width: 1100px; opacity: 0; animation: fadeUp 1s ease 0.5s forwards; }
+    .hero-title em { font-style: italic; color: var(--gold); }
+    .hero-bottom { display: flex; align-items: flex-end; justify-content: space-between; margin-top: 64px; flex-wrap: wrap; gap: 32px; opacity: 0; animation: fadeUp 0.8s ease 0.8s forwards; }
+    .hero-sub { font-size: 15px; line-height: 1.7; color: var(--mist); max-width: 540px; }
+    .hero-actions { display: flex; gap: 16px; flex-wrap: wrap; }
+    .btn-primary { font-size: 11px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; text-decoration: none; background: var(--white); color: var(--ink); padding: 16px 32px; border-radius: 2px; transition: all 0.2s; display: inline-block; }
+    .btn-primary:hover { background: var(--gold); }
+    .btn-outline { font-size: 11px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; text-decoration: none; border: 1px solid rgba(255,255,255,0.2); color: var(--white); padding: 16px 32px; border-radius: 2px; transition: all 0.2s; display: inline-block; }
+    .btn-outline:hover { border-color: var(--white); background: rgba(255,255,255,0.05); }
+
+    .banner-strip { position: relative; z-index: 1; border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); background: var(--ink); overflow: hidden; }
+    .banner-strip img { display: block; width: 100%; height: auto; max-height: 360px; object-fit: cover; object-position: center; }
+
+    .marquee-wrap { position: relative; z-index: 1; border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); padding: 18px 0; overflow: hidden; background: rgba(255,255,255,0.02); }
+    .marquee-track { display: flex; gap: 64px; animation: marquee 38s linear infinite; white-space: nowrap; }
+    .marquee-item { font-size: 10px; font-weight: 600; letter-spacing: 3px; text-transform: uppercase; color: var(--mist); display: flex; align-items: center; gap: 24px; flex-shrink: 0; }
+    .marquee-item::after { content: '◆'; color: var(--gold); font-size: 6px; }
+    @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+    section { position: relative; z-index: 1; }
+    .section-inner { max-width: 1200px; margin: 0 auto; padding: 120px 48px; }
+    .section-label { font-size: 10px; font-weight: 600; letter-spacing: 3px; text-transform: uppercase; color: var(--gold); margin-bottom: 20px; display: flex; align-items: center; gap: 12px; }
+    .section-label::before { content: ''; display: block; width: 24px; height: 1px; background: var(--gold); }
+    .section-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(36px, 5vw, 64px); font-weight: 300; line-height: 1.05; margin-bottom: 24px; }
+    .section-title em { font-style: italic; color: var(--gold); }
+
+    #services { border-top: 1px solid var(--rule); }
+    .services-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0; margin-top: 80px; border: 1px solid var(--rule); }
+    .service-item { padding: 48px; border-right: 1px solid var(--rule); border-bottom: 1px solid var(--rule); transition: background 0.3s; }
+    .service-item:nth-child(2n) { border-right: none; }
+    .service-item:nth-child(n+3) { border-bottom: none; }
+    .service-item:hover { background: rgba(255,255,255,0.02); }
+    .service-num { font-family: 'Cormorant Garamond', serif; font-size: 48px; font-weight: 300; color: rgba(255,255,255,0.08); line-height: 1; margin-bottom: 24px; }
+    .service-title { font-size: 16px; font-weight: 600; letter-spacing: 0.5px; margin-bottom: 14px; color: var(--white); }
+    .service-body { font-size: 14px; line-height: 1.75; color: var(--mist); }
+    .service-tag { display: inline-flex; margin-top: 24px; font-size: 10px; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; color: var(--gold); gap: 8px; align-items: center; }
+    .service-tag::after { content: '→'; }
+
+    #approach { border-top: 1px solid var(--rule); background: rgba(255,255,255,0.01); }
+    .approach-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; margin-top: 64px; }
+    .approach-step { padding: 0 0 0 32px; border-left: 1px solid rgba(201,168,76,0.3); position: relative; }
+    .approach-step::before { content: ''; position: absolute; left: -5px; top: 4px; width: 9px; height: 9px; border-radius: 50%; background: var(--gold); }
+    .approach-num { font-size: 11px; font-weight: 600; letter-spacing: 2px; color: var(--gold); margin-bottom: 16px; text-transform: uppercase; }
+    .approach-title { font-family: 'Cormorant Garamond', serif; font-size: 28px; font-weight: 400; line-height: 1.15; margin-bottom: 14px; }
+    .approach-title em { font-style: italic; color: var(--gold); }
+    .approach-body { font-size: 14px; color: var(--mist); line-height: 1.7; }
+
+    #work { border-top: 1px solid var(--rule); }
+    .work-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 64px; }
+    .work-card { border: 1px solid var(--rule); padding: 48px; border-radius: 4px; position: relative; overflow: hidden; transition: border-color 0.3s, transform 0.3s, background 0.3s; }
+    .work-card:hover { border-color: rgba(201,168,76,0.3); transform: translateY(-4px); background: rgba(255,255,255,0.02); }
+    .work-meta { display: flex; align-items: center; gap: 12px; margin-bottom: 24px; font-size: 10px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); }
+    .work-meta::before { content: ''; display: block; width: 24px; height: 1px; background: var(--gold); }
+    .work-card h3 { font-family: 'Cormorant Garamond', serif; font-size: 32px; font-weight: 400; line-height: 1.15; margin-bottom: 16px; }
+    .work-card h3 em { font-style: italic; color: var(--gold); }
+    .work-card p { font-size: 14px; line-height: 1.75; color: var(--mist); margin-bottom: 20px; }
+    .work-tags { display: flex; flex-wrap: wrap; gap: 8px; padding-top: 20px; border-top: 1px solid var(--rule); }
+    .work-tag { font-size: 10px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; color: var(--mist); padding: 6px 12px; border: 1px solid var(--rule); border-radius: 2px; }
+
+    #products { border-top: 1px solid var(--rule); background: rgba(255,255,255,0.01); }
+    .products-intro { font-size: 14px; color: var(--mist); line-height: 1.75; max-width: 720px; margin-bottom: 16px; }
+    .products-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 64px; }
+    .product-card { border: 1px solid var(--rule); padding: 40px 36px; border-radius: 4px; position: relative; overflow: hidden; transition: border-color 0.3s, transform 0.3s; text-decoration: none; display: block; color: var(--white); }
+    .product-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px; background: linear-gradient(90deg, transparent, var(--gold), transparent); opacity: 0; transition: opacity 0.3s; }
+    .product-card:hover { border-color: rgba(201,168,76,0.3); transform: translateY(-4px); }
+    .product-card:hover::before { opacity: 1; }
+    .product-card.featured { border-color: rgba(59,130,246,0.3); background: linear-gradient(135deg, rgba(59,130,246,0.05), transparent); }
+    .product-card.featured::before { background: linear-gradient(90deg, transparent, var(--blue), transparent); opacity: 1; }
+    .product-icon { width: 40px; height: 40px; border-radius: 8px; display: flex; align-items: center; justify-content: center; margin-bottom: 28px; font-size: 18px; }
+    .product-icon.gold { background: rgba(201,168,76,0.12); }
+    .product-icon.blue { background: rgba(59,130,246,0.12); }
+    .product-icon.slate { background: rgba(100,116,139,0.15); }
+    .product-name { font-size: 17px; font-weight: 600; margin-bottom: 12px; }
+    .product-desc { font-size: 13px; line-height: 1.7; color: var(--mist); margin-bottom: 28px; }
+    .product-link { font-size: 10px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); display: flex; align-items: center; gap: 8px; transition: gap 0.2s; }
+    .product-card:hover .product-link { gap: 12px; }
+    .product-badge { position: absolute; top: 20px; right: 20px; font-size: 9px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; background: var(--blue); color: var(--white); padding: 4px 10px; border-radius: 2px; }
+
+    #about { border-top: 1px solid var(--rule); }
+    .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; margin-top: 64px; }
+    .about-body { font-size: 15px; line-height: 1.85; color: var(--mist); margin-bottom: 20px; }
+    .about-body strong { color: var(--white); font-weight: 600; }
+    .about-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; margin-top: 48px; padding-top: 48px; border-top: 1px solid var(--rule); }
+    .stat-num { font-family: 'Cormorant Garamond', serif; font-size: 52px; font-weight: 300; color: var(--white); line-height: 1; margin-bottom: 8px; }
+    .stat-num span { color: var(--gold); }
+    .stat-label { font-size: 11px; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; color: var(--mid); }
+    .about-right { position: relative; }
+    .about-visual { border: 1px solid var(--rule); padding: 48px; background: rgba(255,255,255,0.02); border-radius: 4px; }
+    .about-pillars { display: flex; flex-direction: column; gap: 0; }
+    .pillar { padding: 24px 0; border-bottom: 1px solid var(--rule); display: flex; align-items: flex-start; gap: 20px; }
+    .pillar:last-child { border-bottom: none; padding-bottom: 0; }
+    .pillar-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--gold); flex-shrink: 0; margin-top: 6px; }
+    .pillar-title { font-size: 14px; font-weight: 600; color: var(--white); margin-bottom: 6px; }
+    .pillar-body { font-size: 13px; color: var(--mist); line-height: 1.6; }
+
+    #contact { border-top: 1px solid var(--rule); }
+    .contact-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; }
+    .contact-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(36px, 4vw, 56px); font-weight: 300; line-height: 1.05; margin-bottom: 20px; }
+    .contact-title em { font-style: italic; color: var(--gold); }
+    .contact-sub { font-size: 14px; line-height: 1.75; color: var(--mist); margin-bottom: 40px; }
+    .contact-detail { display: flex; align-items: center; gap: 16px; margin-bottom: 16px; }
+    .contact-detail-label { font-size: 10px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: var(--mid); width: 60px; }
+    .contact-detail a { font-size: 14px; color: var(--white); text-decoration: none; transition: color 0.2s; }
+    .contact-detail a:hover { color: var(--gold); }
+    .contact-form { display: flex; flex-direction: column; gap: 16px; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .form-group { display: flex; flex-direction: column; gap: 8px; }
+    .form-group label { font-size: 10px; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; color: var(--mid); }
+    .form-group input, .form-group textarea, .form-group select { background: rgba(255,255,255,0.04); border: 1px solid var(--rule); color: var(--white); font-family: 'Syne', sans-serif; font-size: 14px; padding: 14px 18px; border-radius: 2px; outline: none; transition: border-color 0.2s; -webkit-appearance: none; }
+    .form-group select option { background: var(--ink2); }
+    .form-group input:focus, .form-group textarea:focus, .form-group select:focus { border-color: rgba(201,168,76,0.5); }
+    .form-group input::placeholder, .form-group textarea::placeholder { color: var(--slate); }
+    .form-group textarea { resize: vertical; min-height: 120px; }
+    .form-submit { font-size: 11px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; background: var(--white); color: var(--ink); border: none; padding: 16px 32px; border-radius: 2px; cursor: pointer; transition: all 0.2s; align-self: flex-start; font-family: 'Syne', sans-serif; }
+    .form-submit:hover { background: var(--gold); }
+
+    footer { position: relative; z-index: 1; border-top: 1px solid var(--rule); padding: 48px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 24px; }
+    .footer-logo img { height: 30px; width: auto; filter: brightness(0) invert(1); opacity: 0.6; }
+    .footer-links { display: flex; gap: 32px; }
+    .footer-links a { font-size: 11px; font-weight: 500; letter-spacing: 1px; text-transform: uppercase; color: var(--mid); text-decoration: none; transition: color 0.2s; }
+    .footer-links a:hover { color: var(--white); }
+    .footer-copy { font-size: 11px; color: var(--slate); letter-spacing: 0.5px; }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.7s ease, transform 0.7s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .reveal-delay-1 { transition-delay: 0.1s; }
+    .reveal-delay-2 { transition-delay: 0.2s; }
+    .reveal-delay-3 { transition-delay: 0.3s; }
+    .reveal-delay-4 { transition-delay: 0.4s; }
+
+    @media (max-width: 900px) {
+      nav { padding: 16px 24px; }
+      .nav-logo img { height: 30px; }
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+      #hero { padding: 0 24px 64px; }
+      .section-inner { padding: 80px 24px; }
+      .services-grid { grid-template-columns: 1fr; }
+      .service-item { border-right: none !important; }
+      .service-item:last-child { border-bottom: none; }
+      .approach-grid { grid-template-columns: 1fr; gap: 40px; }
+      .work-grid { grid-template-columns: 1fr; }
+      .work-card { padding: 36px 28px; }
+      .products-grid { grid-template-columns: 1fr; }
+      .about-grid { grid-template-columns: 1fr; gap: 48px; }
+      .contact-inner { grid-template-columns: 1fr; gap: 48px; }
+      .form-row { grid-template-columns: 1fr; }
+      footer { padding: 32px 24px; flex-direction: column; align-items: flex-start; }
+      .footer-links { flex-wrap: wrap; gap: 20px; }
+      .banner-strip img { max-height: 220px; }
+      body { cursor: auto; }
+      .cursor { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="cursor" id="cursor">
+    <div class="cursor-ring" id="cursorRing"></div>
+    <div class="cursor-dot" id="cursorDot"></div>
+  </div>
+
+  <nav>
+    <a href="#" class="nav-logo"><img src="otb_logo.png" alt="OTB Solutions"></a>
+    <ul class="nav-links">
+      <li><a href="#services">Services</a></li>
+      <li><a href="#approach">Approach</a></li>
+      <li><a href="#work">Engagements</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#contact">Contact</a></li>
+      <li><a href="https://ichra.solutionotb.com" class="nav-cta">Agent Login</a></li>
+    </ul>
+    <div class="hamburger" id="hamburger">
+      <span></span><span></span><span></span>
+    </div>
+  </nav>
+
+  <section id="hero">
+    <div class="hero-bg"></div>
+    <p class="hero-label">Strategy · Consulting · AI</p>
+    <h1 class="hero-title">
+      Aligning AI &amp;<br>
+      technology to<br>
+      <em>revenue and growth.</em>
+    </h1>
+    <div class="hero-bottom">
+      <p class="hero-sub">OTB Solutions LLC is a strategy and consulting firm helping financial services leaders translate AI and technology investment into measurable revenue and growth — across distribution strategy, predictive analytics, and the operating models that turn ambition into outcomes.</p>
+      <div class="hero-actions">
+        <a href="#services" class="btn-primary">Our Services</a>
+        <a href="#contact" class="btn-outline">Start a Conversation</a>
+      </div>
+    </div>
+  </section>
+
+  <div class="banner-strip">
+    <img src="otb_banner.png" alt="OTB Solutions — Aligning AI to revenue and growth in financial services">
+  </div>
+
+  <div class="marquee-wrap">
+    <div class="marquee-track">
+      <div class="marquee-item">AI &amp; Technology Strategy</div>
+      <div class="marquee-item">Revenue Growth</div>
+      <div class="marquee-item">Distribution Strategy</div>
+      <div class="marquee-item">Predictive Analytics</div>
+      <div class="marquee-item">GA Frameworks</div>
+      <div class="marquee-item">Model Office Design</div>
+      <div class="marquee-item">Operating Model</div>
+      <div class="marquee-item">GTM Strategy</div>
+      <div class="marquee-item">AI &amp; Technology Strategy</div>
+      <div class="marquee-item">Revenue Growth</div>
+      <div class="marquee-item">Distribution Strategy</div>
+      <div class="marquee-item">Predictive Analytics</div>
+      <div class="marquee-item">GA Frameworks</div>
+      <div class="marquee-item">Model Office Design</div>
+      <div class="marquee-item">Operating Model</div>
+      <div class="marquee-item">GTM Strategy</div>
+    </div>
+  </div>
+
+  <section id="services">
+    <div class="section-inner">
+      <p class="section-label reveal">Our Services</p>
+      <h2 class="section-title reveal reveal-delay-1">
+        Strategy and consulting<br>built around <em>the P&amp;L.</em>
+      </h2>
+      <div class="services-grid">
+        <div class="service-item reveal">
+          <div class="service-num">01</div>
+          <h3 class="service-title">AI &amp; Technology Strategy</h3>
+          <p class="service-body">We help financial services leaders move from AI experimentation to AI as a P&amp;L lever. Roadmaps, investment cases, capability mapping, and prioritization — all anchored to specific revenue, retention, and efficiency outcomes.</p>
+          <span class="service-tag">Roadmap &amp; Investment Strategy</span>
+        </div>
+        <div class="service-item reveal reveal-delay-1">
+          <div class="service-num">02</div>
+          <h3 class="service-title">Predictive Analytics &amp; Decision Systems</h3>
+          <p class="service-body">Advisory and architecture for predictive modeling across investing, life insurance, and annuities — suitability, next-best-action, retention, and cross-product signaling. Designed to integrate with existing systems and clear compliance review.</p>
+          <span class="service-tag">Cross-Product Predictive</span>
+        </div>
+        <div class="service-item reveal reveal-delay-2">
+          <div class="service-num">03</div>
+          <h3 class="service-title">Distribution &amp; GA Strategy</h3>
+          <p class="service-body">GA framework design, model office build-out, three-phase AI rollouts, and distributor onboarding strategy for carriers and large agencies. Boardroom-register strategy that translates into field-ready execution plans.</p>
+          <span class="service-tag">Carrier &amp; Distributor</span>
+        </div>
+        <div class="service-item reveal reveal-delay-3">
+          <div class="service-num">04</div>
+          <h3 class="service-title">Operating Model &amp; Revenue Enablement</h3>
+          <p class="service-body">The bridge between strategy and execution: agent enablement, lead qualification systems, GTM playbooks, and the field tooling that determines whether a strategy actually moves the number.</p>
+          <span class="service-tag">Strategy → Execution</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="approach">
+    <div class="section-inner">
+      <p class="section-label reveal">Our Approach</p>
+      <h2 class="section-title reveal reveal-delay-1">
+        Every engagement starts<br>with the <em>P&amp;L.</em>
+      </h2>
+      <div class="approach-grid">
+        <div class="approach-step reveal">
+          <div class="approach-num">01 — Diagnose</div>
+          <h3 class="approach-title">Anchor to <em>revenue and growth.</em></h3>
+          <p class="approach-body">We start with the metrics that matter — distribution productivity, conversion, retention, product mix, persistency. AI and technology choices follow from there, not the other way around.</p>
+        </div>
+        <div class="approach-step reveal reveal-delay-1">
+          <div class="approach-num">02 — Design</div>
+          <h3 class="approach-title">Strategy that <em>holds up</em> in the audit.</h3>
+          <p class="approach-body">Regulatory-first design across ERISA, ACA, suitability, TCPA, and state-level nuance. We build strategies that ship to the field without unraveling under compliance review.</p>
+        </div>
+        <div class="approach-step reveal reveal-delay-2">
+          <div class="approach-num">03 — Deliver</div>
+          <h3 class="approach-title">Bridge to the <em>operating model.</em></h3>
+          <p class="approach-body">We don't hand off slides and walk away. When the strategy needs an operating model, an enablement system, or a working tool, we build it — so the strategy actually lands.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="work">
+    <div class="section-inner">
+      <p class="section-label reveal">Selected Engagements</p>
+      <h2 class="section-title reveal reveal-delay-1">
+        Where strategy meets<br><em>distribution.</em>
+      </h2>
+      <div class="work-grid">
+        <div class="work-card reveal">
+          <div class="work-meta">Predictive Analytics Strategy</div>
+          <h3>Cross-product predictive engine across <em>investing, life &amp; annuities</em></h3>
+          <p>Strategy and architecture work for a unified predictive analytics capability spanning three of the most consequential financial product lines — surfacing client-fit signals, suitability inputs, and next-best-action recommendations for advisors operating across investing, life, and annuity portfolios.</p>
+          <div class="work-tags">
+            <span class="work-tag">Predictive Modeling</span>
+            <span class="work-tag">Suitability</span>
+            <span class="work-tag">Cross-Product</span>
+          </div>
+        </div>
+        <div class="work-card reveal reveal-delay-1">
+          <div class="work-meta">Carrier Distribution Strategy</div>
+          <h3>Three-phase AI rollout &amp; GA framework for a <em>Fortune 500 carrier</em></h3>
+          <p>Executive-register strategy work — AI Pilots → Model Office → Full GA — for a major supplemental benefits carrier. Distribution architecture, capability sequencing, governance design, and the field-readiness work that determines whether the framework actually scales.</p>
+          <div class="work-tags">
+            <span class="work-tag">GA Strategy</span>
+            <span class="work-tag">AI Rollout</span>
+            <span class="work-tag">Model Office</span>
+          </div>
+        </div>
+        <div class="work-card reveal reveal-delay-2">
+          <div class="work-meta">ICHRA Market Entry</div>
+          <h3>Go-to-market strategy for a <em>new benefits category</em></h3>
+          <p>Full strategy stack for entering the ICHRA market — segmentation, lead qualification design, agent-enablement model, white-label distribution path, and the production AI tools that brought it to market. Live at <a href="https://ichra.solutionotb.com" style="color:var(--gold);text-decoration:none;">ichra.solutionotb.com</a>.</p>
+          <div class="work-tags">
+            <span class="work-tag">GTM Strategy</span>
+            <span class="work-tag">ICHRA</span>
+            <span class="work-tag">White Label</span>
+          </div>
+        </div>
+        <div class="work-card reveal reveal-delay-3">
+          <div class="work-meta">Regulatory &amp; Operating Strategy</div>
+          <h3>Distribution &amp; compliance strategy in a <em>regulated category</em></h3>
+          <p>End-to-end go-to-market and regulatory pathway work — state licensing, distributor onboarding, logistics, payment terms, and reporting cadence — wrapped into a single operator playbook. The kind of operating-model work that separates strategy from theater.</p>
+          <div class="work-tags">
+            <span class="work-tag">Operating Model</span>
+            <span class="work-tag">Compliance</span>
+            <span class="work-tag">GTM Playbook</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="products">
+    <div class="section-inner">
+      <p class="section-label reveal">Tools We've Built</p>
+      <h2 class="section-title reveal reveal-delay-1">
+        When strategy needs<br>a <em>working tool.</em>
+      </h2>
+      <p class="products-intro reveal reveal-delay-2">When an engagement needs more than a roadmap — when it needs a production tool that ships to the field — we build it ourselves. These are a few of the platforms our consulting work has produced.</p>
+      <div class="products-grid">
+        <a href="https://ichra.solutionotb.com" class="product-card featured reveal">
+          <div class="product-badge">Live</div>
+          <div class="product-icon blue">🎯</div>
+          <h3 class="product-name">ICHRA Assessment Tool</h3>
+          <p class="product-desc">A six-question employer assessment that qualifies ICHRA leads, scores fit, and delivers personalized results — powered by BenefitIQ AI.</p>
+          <span class="product-link">Explore Tool →</span>
+        </a>
+        <a href="https://ichra.solutionotb.com/contribution.html" class="product-card reveal reveal-delay-1">
+          <div class="product-icon gold">📊</div>
+          <h3 class="product-name">Contribution Calculator</h3>
+          <p class="product-desc">A guided AI chat experience that helps employers model ICHRA contribution strategies using real 2025 benchmark data — no census required.</p>
+          <span class="product-link">Try Calculator →</span>
+        </a>
+        <div class="product-card reveal reveal-delay-2" style="opacity:0.6; cursor:default;">
+          <div class="product-icon slate">🔐</div>
+          <h3 class="product-name">Agent Platform</h3>
+          <p class="product-desc">A multi-tenant SaaS platform giving agents their own branded assessment URLs, lead dashboards, and client tracking — coming Q3 2026.</p>
+          <span class="product-link" style="color:var(--mist);">Coming Soon</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="about">
+    <div class="section-inner">
+      <div class="about-grid">
+        <div class="about-left">
+          <p class="section-label reveal">About OTB</p>
+          <h2 class="section-title reveal reveal-delay-1">A different kind of<br><em>consulting firm.</em></h2>
+          <p class="about-body reveal reveal-delay-2">
+            <strong>OTB Solutions LLC</strong> sits at the intersection of AI, technology strategy, and financial services distribution. We're a strategy and consulting firm — not a generic AI shop, not a pure tech vendor.
+          </p>
+          <p class="about-body reveal reveal-delay-2">
+            We help carriers, distributors, and financial services leaders align AI and technology investments to the metrics that move the business: <strong>revenue, retention, distribution productivity, and growth.</strong> Our practice spans AI strategy, predictive analytics across investing, life, and annuities, GA distribution frameworks, and the operating-model work that makes any of it real.
+          </p>
+          <p class="about-body reveal reveal-delay-3">
+            <strong>OTB</strong> stands for <strong>Outside The Box</strong> — solving old problems in financial services with sharper thinking, not bolted-on AI window dressing.
+          </p>
+          <div class="about-stats reveal reveal-delay-3">
+            <div>
+              <div class="stat-num">3<span>+</span></div>
+              <div class="stat-label">Product Lines Modeled</div>
+            </div>
+            <div>
+              <div class="stat-num">F500</div>
+              <div class="stat-label">Carrier Engagements</div>
+            </div>
+            <div>
+              <div class="stat-num">50<span>+</span></div>
+              <div class="stat-label">States Covered</div>
+            </div>
+            <div>
+              <div class="stat-num">2025</div>
+              <div class="stat-label">Year Founded</div>
+            </div>
+          </div>
+        </div>
+        <div class="about-right reveal reveal-delay-2">
+          <div class="about-visual">
+            <div class="about-pillars">
+              <div class="pillar">
+                <div class="pillar-dot"></div>
+                <div>
+                  <div class="pillar-title">Aligned to Revenue &amp; Growth</div>
+                  <div class="pillar-body">Every engagement starts with the P&amp;L. We design AI and technology strategy around the metrics that move the business — not around what's interesting on a slide.</div>
+                </div>
+              </div>
+              <div class="pillar">
+                <div class="pillar-dot"></div>
+                <div>
+                  <div class="pillar-title">Regulatory-First Thinking</div>
+                  <div class="pillar-body">ERISA, ACA §4980H, suitability rules, TCPA, state-by-state nuance — compliance is baked into the strategy from day one, not bolted on after the fact.</div>
+                </div>
+              </div>
+              <div class="pillar">
+                <div class="pillar-dot"></div>
+                <div>
+                  <div class="pillar-title">Boardroom &amp; Field, Same Firm</div>
+                  <div class="pillar-body">We operate in the executive register and in the field. The same team that frames the strategy can also build the operating model and the tooling that lands it.</div>
+                </div>
+              </div>
+              <div class="pillar">
+                <div class="pillar-dot" style="background:var(--blue)"></div>
+                <div>
+                  <div class="pillar-title">Strategy That Ships</div>
+                  <div class="pillar-body">Decks don't move revenue. We stay through execution — operating model, enablement, and the working tools that turn strategy into outcomes.</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact">
+    <div class="section-inner">
+      <div class="contact-inner">
+        <div>
+          <p class="section-label reveal">Get in Touch</p>
+          <h2 class="contact-title reveal reveal-delay-1">
+            Let's align AI<br>to <em>the only<br>numbers that matter.</em>
+          </h2>
+          <p class="contact-sub reveal reveal-delay-2">
+            Whether you're framing an AI strategy at the board level, redesigning distribution, or trying to translate a roadmap into something the field can actually use — we'd like to talk.
+          </p>
+          <div class="contact-detail reveal reveal-delay-2">
+            <span class="contact-detail-label">Email</span>
+            <a href="mailto:chris@solutionotb.com">chris@solutionotb.com</a>
+          </div>
+          <div class="contact-detail reveal reveal-delay-3">
+            <span class="contact-detail-label">Tools</span>
+            <a href="https://ichra.solutionotb.com">ichra.solutionotb.com</a>
+          </div>
+        </div>
+        <div class="reveal reveal-delay-2">
+          <form class="contact-form" onsubmit="handleSubmit(event)">
+            <div class="form-row">
+              <div class="form-group">
+                <label>First Name</label>
+                <input type="text" placeholder="Chris" required>
+              </div>
+              <div class="form-group">
+                <label>Last Name</label>
+                <input type="text" placeholder="Smith" required>
+              </div>
+            </div>
+            <div class="form-group">
+              <label>Company</label>
+              <input type="text" placeholder="Your firm or organization">
+            </div>
+            <div class="form-group">
+              <label>Email</label>
+              <input type="email" placeholder="you@example.com" required>
+            </div>
+            <div class="form-group">
+              <label>I'm exploring</label>
+              <select>
+                <option value="">Select a topic</option>
+                <option>AI &amp; Technology Strategy</option>
+                <option>Predictive Analytics (Investing / Life / Annuities)</option>
+                <option>Distribution &amp; GA Strategy</option>
+                <option>Operating Model &amp; Enablement</option>
+                <option>ICHRA Market Entry</option>
+                <option>Custom Engagement</option>
+                <option>Partnership Inquiry</option>
+                <option>General Inquiry</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Message</label>
+              <textarea placeholder="Tell us what you're working on..."></textarea>
+            </div>
+            <button type="submit" class="form-submit">Send Message →</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-logo"><img src="otb_logo.png" alt="OTB Solutions"></div>
+    <div class="footer-links">
+      <a href="#services">Services</a>
+      <a href="#approach">Approach</a>
+      <a href="#work">Engagements</a>
+      <a href="https://ichra.solutionotb.com">ICHRA Tool</a>
+      <a href="https://ichra.solutionotb.com/privacy.html">Privacy</a>
+      <a href="https://ichra.solutionotb.com/terms.html">Terms</a>
+      <a href="mailto:chris@solutionotb.com">Contact</a>
+    </div>
+    <div class="footer-copy">© 2026 OTB Solutions LLC · All rights reserved</div>
+  </footer>
+
+  <script>
+    const ring = document.getElementById('cursorRing');
+    const dot = document.getElementById('cursorDot');
+    let mx = 0, my = 0, rx = 0, ry = 0;
+    document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; dot.style.left = mx+'px'; dot.style.top = my+'px'; });
+    function animRing() { rx += (mx-rx)*0.12; ry += (my-ry)*0.12; ring.style.left = rx+'px'; ring.style.top = ry+'px'; requestAnimationFrame(animRing); }
+    animRing();
+    document.querySelectorAll('a,button,.product-card,.work-card,.service-item,.approach-step').forEach(el => {
+      el.addEventListener('mouseenter', () => { ring.style.width='56px'; ring.style.height='56px'; });
+      el.addEventListener('mouseleave', () => { ring.style.width='36px'; ring.style.height='36px'; });
+    });
+
+    const reveals = document.querySelectorAll('.reveal');
+    const obs = new IntersectionObserver(entries => {
+      entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); });
+    }, { threshold: 0, rootMargin: '0px 0px -60px 0px' });
+    reveals.forEach(el => obs.observe(el));
+    reveals.forEach(el => { const r=el.getBoundingClientRect(); if(r.top<window.innerHeight) el.classList.add('visible'); });
+
+    document.getElementById('hamburger').addEventListener('click', () => {
+      const links = document.querySelector('.nav-links');
+      if(links.style.display === 'flex') {
+        links.style.display = 'none';
+      } else {
+        links.style.cssText = 'display:flex;flex-direction:column;position:fixed;top:64px;left:0;right:0;background:rgba(10,14,23,0.98);padding:32px;gap:24px;border-bottom:1px solid rgba(255,255,255,0.07);backdrop-filter:blur(20px);z-index:99;';
+      }
+    });
+
+    function handleSubmit(e) {
+      e.preventDefault();
+      const btn = e.target.querySelector('.form-submit');
+      btn.textContent = 'Message Sent ✓';
+      btn.style.background = '#16A34A';
+      btn.style.color = '#fff';
+      setTimeout(() => { btn.textContent = 'Send Message →'; btn.style.background=''; btn.style.color=''; e.target.reset(); }, 3000);
+    }
+  </script>
+</body>
+</html>
